@@ -3,9 +3,54 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>Formulario Alta de Datos</title>
 </head>
 <body>
+
+	<h3>Alta de Datos</h3>
+
+	<form name="" id="form">
+		<label for="nombre">Nombre</label>
+		<input type="text" name="Name" id="nombre">
+		<br>
+    <label for="correo">Correo</label>
+		<input type="text" name="Email" id="correo">
+		<br>
+		<label for="fecha">Fecha</label>
+    <input type="date" name="Time" id="fecha">
+    <input type="checkbox" name="Check" value="true" id="">
+    <br>
+    <label for="mensaje">Mensaje</label>
+    <textarea name="Message" id="mensaje"></textarea>
+		<hr>
+		<input type="submit" name="" value="Enviar" id="submit">
+
+	</form>
+
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx0-u3eoub8UnpsLQmwB5ZFaAJev8NlKQwL3UtChH2q7f_hyFRvvtUQBOoxGM25Me_Blg/exec'
+    const form = document.querySelector('#form')
+    const btn = document.querySelector('#submit')
+
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      btn.disabled = true
+      btn.innerHTML = "Cargando..."
+
+      console.log(form)
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => { 
+              btn.disabled = false
+      btn.innerHTML = "Submit"
+            alert('Realizado!', response) })
+        .catch(error => {
+                     btn.disabled = false
+      btn.innerHTML = "Submit"
+            alert('Error!', error.message)})
+    })
+</script>
 
 </body>
 </html>
